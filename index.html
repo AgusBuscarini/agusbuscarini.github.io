@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agustín Buscarini — Full-Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F8F7F4;
+      --surface: #FFFFFF;
+      --ink: #1A1A18;
+      --ink-light: #6B6B65;
+      --ink-xlight: #AEAEA8;
+      --accent: #1B4F8A;
+      --accent-light: #E8EFF8;
+      --accent-mid: #4A7FC1;
+      --border: #E5E4DF;
+      --tag-bg: #EEECEA;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+      --radius: 12px;
+      --radius-sm: 6px;
+      --max: 820px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 clamp(1.5rem, 5vw, 3rem);
+      height: 60px;
+      background: rgba(248, 247, 244, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-light);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    main { padding-top: 60px; }
+    section { padding: clamp(4rem, 10vw, 7rem) clamp(1.5rem, 5vw, 3rem); }
+    .container { max-width: var(--max); margin: 0 auto; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: calc(100vh - 60px);
+      display: flex; align-items: center;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative grid */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.5;
+      mask-image: radial-gradient(ellipse 70% 60% at 80% 50%, black 0%, transparent 100%);
+    }
+
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: var(--max);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--ink-light);
+      font-weight: 300;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--ink-light);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 1.5px solid var(--accent);
+    }
+    .btn-primary:hover { background: #163f6f; border-color: #163f6f; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* ── SECTION HEADERS ── */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-intro {
+      color: var(--ink-light);
+      font-size: 1rem;
+      max-width: 520px;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    /* ── PROJECTS ── */
+    #proyectos { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .project-card:hover { box-shadow: 0 8px 32px rgba(27,79,138,0.10); transform: translateY(-3px); }
+
+    .project-header {
+      padding: 1.8rem 1.8rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--accent-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      line-height: 1.65;
+    }
+
+    .project-footer {
+      padding: 1.2rem 1.8rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 0.8rem;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.25rem 0.6rem;
+      background: var(--tag-bg);
+      border-radius: 4px;
+      color: var(--ink-light);
+    }
+
+    .project-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.3rem;
+      transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 0.6rem; }
+
+    .project-features {
+      padding: 1.2rem 1.8rem;
+      border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+
+    .feature {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--ink-light);
+    }
+    .feature::before {
+      content: '→';
+      color: var(--accent);
+      font-size: 0.8rem;
+      margin-top: 0.1rem;
+      flex-shrink: 0;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--border);
+    }
+
+    .skill-group {
+      background: var(--surface);
+      padding: 1.6rem;
+    }
+
+    .skill-group-title {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .skill-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .skill-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .skill-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    /* ── CONTACT ── */
+    #contacto { background: var(--ink); }
+    #contacto h2 { color: #fff; }
+    #contacto .section-label { color: var(--accent-mid); }
+    #contacto .section-intro { color: rgba(255,255,255,0.5); }
+
+    .contact-links {
+      display: flex; flex-direction: column; gap: 1px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .contact-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 1.5rem;
+      background: rgba(255,255,255,0.04);
+      text-decoration: none;
+      transition: background 0.2s;
+      gap: 1rem;
+    }
+    .contact-item:hover { background: rgba(255,255,255,0.08); }
+
+    .contact-left { display: flex; align-items: center; gap: 1rem; }
+    .contact-icon {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      font-family: var(--mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 0.1rem;
+    }
+    .contact-value {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 400;
+    }
+    .contact-arrow { color: rgba(255,255,255,0.25); font-size: 0.9rem; transition: transform 0.2s; }
+    .contact-item:hover .contact-arrow { transform: translateX(4px); color: rgba(255,255,255,0.6); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.2);
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-family: var(--mono);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">AB</a>
+    <ul class="nav-links">
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-inner container">
+        <div class="hero-tag">Disponible para trabajar</div>
+        <h1>Agustín<br><em>Buscarini</em></h1>
+        <p class="hero-sub">Full-Stack Developer — Backend Focused</p>
+        <p class="hero-desc">
+          Desarrollador especializado en Java y Spring Boot, graduado de UTN-FRC.
+          Construyo APIs REST, sistemas escalables e interfaces React que conectan
+          con el mundo real.
+        </p>
+        <div class="hero-ctas">
+          <a href="#proyectos" class="btn btn-primary">Ver proyectos →</a>
+          <a href="#contacto" class="btn btn-secondary">Contacto</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos">
+      <div class="container">
+        <p class="section-label reveal">Proyectos</p>
+        <h2 class="reveal">Lo que construí</h2>
+        <p class="section-intro reveal">Proyectos reales con stack moderno, diseñados para escalar.</p>
+
+        <div class="project-card reveal">
+          <div class="project-header">
+            <div class="project-icon">✈️</div>
+            <div class="project-title">AirVision</div>
+            <p class="project-desc">
+              Plataforma web de seguimiento de vuelos en tiempo real. Integra datos de la API
+              OpenSky Network con un backend robusto en Spring Boot y un frontend interactivo en React.
+            </p>
+          </div>
+          <div class="project-features">
+            <div class="feature">Backend con Spring Boot exponiendo APIs REST documentadas</div>
+            <div class="feature">Frontend en React con visualización interactiva de vuelos en tiempo real</div>
+            <div class="feature">Base de datos PostgreSQL, dockerizado para despliegue reproducible</div>
+            <div class="feature">Integración con API externa (OpenSky Network)</div>
+          </div>
+          <div class="project-footer">
+            <div class="tags">
+              <span class="tag">Java</span>
+              <span class="tag">Spring Boot</span>
+              <span class="tag">React</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Docker</span>
+              <span class="tag">REST API</span>
+            </div>
+            <a href="https://github.com/agusbuscarini" target="_blank" class="project-link">
+              Ver en GitHub →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <p class="section-label reveal">Habilidades</p>
+        <h2 class="reveal">Stack técnico</h2>
+        <p class="section-intro reveal">Las herramientas con las que trabajo día a día.</p>
+
+        <div class="skills-grid reveal">
+          <div class="skill-group">
+            <div class="skill-group-title">Backend</div>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-dot"></span>Java</div>
+              <div class="skill-item"><span class="skill-dot"></span>Spring Boot</div>
+              <div class="skill-item"><span class="skill-dot"></span>REST APIs</div>
+              <div class="skill-item"><span class="skill-dot"></span>JPA / Hibernate</div>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Frontend</div>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-dot"></span>React</div>
+              <div class="skill-item"><span class="skill-dot"></span>JavaScript</div>
+              <div class="skill-item"><span class="skill-dot"></span>HTML / CSS</div>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Bases de datos</div>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-dot"></span>PostgreSQL</div>
+              <div class="skill-item"><span class="skill-dot"></span>SQL</div>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">DevOps & Tools</div>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-dot"></span>Docker</div>
+              <div class="skill-item"><span class="skill-dot"></span>Git</div>
+              <div class="skill-item"><span class="skill-dot"></span>Linux</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <div class="container">
+        <p class="section-label reveal">Contacto</p>
+        <h2 class="reveal">Hablemos</h2>
+        <p class="section-intro reveal">Estoy buscando nuevas oportunidades. Si tenés un proyecto o una posición, escribime.</p>
+
+        <div class="contact-links reveal">
+          <a href="mailto:agustinbuscarini@gmail.com" class="contact-item">
+            <div class="contact-left">
+              <div class="contact-icon">✉️</div>
+              <div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value">agustinbuscarini@gmail.com</div>
+              </div>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+          <a href="https://www.linkedin.com/in/agustinbuscarini/" target="_blank" class="contact-item">
+            <div class="contact-left">
+              <div class="contact-icon">💼</div>
+              <div>
+                <div class="contact-label">LinkedIn</div>
+                <div class="contact-value">linkedin.com/in/agustinbuscarini</div>
+              </div>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+          <a href="https://github.com/agusbuscarini" target="_blank" class="contact-item">
+            <div class="contact-left">
+              <div class="contact-icon">🐙</div>
+              <div>
+                <div class="contact-label">GitHub</div>
+                <div class="contact-value">github.com/agusbuscarini</div>
+              </div>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Agustín Buscarini · 2026 · Córdoba, Argentina
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
