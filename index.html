@@ -658,7 +658,17 @@
       transform: none;
     }
 
-    /* ── SOBRE MÍ ── */
+    .project-shell--reversed {
+      direction: ltr;
+    }
+
+    @media (min-width: 981px) {
+      .project-shell--reversed {
+        grid-template-columns: 0.95fr 1.05fr;
+      }
+    }
+
+    /* TypeScript in skills */
     #sobre {
       border-top: 1px solid var(--line);
     }
@@ -766,7 +776,7 @@
       </a>
       <ul class="nav-links">
         <li><a href="#sobre">Sobre mí</a></li>
-        <li><a href="#proyecto">Proyecto</a></li>
+        <li><a href="#proyecto">Proyectos</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -810,8 +820,8 @@
               <div class="summary-row-value">Backend, APIs REST y arquitectura en Spring Boot</div>
             </div>
             <div class="summary-row">
-              <div class="summary-row-label">Main project</div>
-              <div class="summary-row-value">AirVision · Flight tracking platform</div>
+              <div class="summary-row-label">Projects</div>
+              <div class="summary-row-value">AirVision · NimbusView</div>
             </div>
             <div class="summary-row">
               <div class="summary-row-label">Location</div>
@@ -864,12 +874,14 @@
     <section class="section" id="proyecto">
       <div class="container">
         <header class="section-header reveal">
-          <div class="eyebrow">Proyecto principal</div>
-          <h2>AirVision</h2>
+          <div class="eyebrow">Proyectos destacados</div>
+          <h2>Lo que construí</h2>
           <p class="lead">
-            Plataforma de seguimiento de vuelos en tiempo real, construida con Spring Boot, React y PostgreSQL e integrada con la API de OpenSky Network.
+            Proyectos full-stack con foco en backend sólido, integraciones con APIs externas y experiencias de usuario cuidadas.
           </p>
         </header>
+
+        <div class="project-label reveal" style="font-family:var(--mono);font-size:0.78rem;color:var(--muted);margin-bottom:1rem;letter-spacing:0.06em;">01 — Proyecto final de carrera</div>
 
         <div class="project-shell">
           <div class="terminal-card reveal">
@@ -905,7 +917,7 @@
 
           <article class="project-info reveal">
             <div class="project-badge">featured project</div>
-            <h3>Flight tracking web platform</h3>
+            <h3>AirVision</h3>
             <p>
               Plataforma web de seguimiento de vuelos en tiempo real. Integra datos externos,
               procesamiento backend y visualización interactiva en frontend, con una base sólida
@@ -941,7 +953,83 @@
             </div>
 
             <a class="btn btn-primary" href="https://github.com/agusbuscarini/airvision" target="_blank" rel="noreferrer">Ver repositorio</a>
+            <a class="btn btn-secondary" href="https://youtu.be/DMg6GLUva5g?si=yOIY4VlhIS7LiQQV" target="_blank" rel="noreferrer">Ver video →</a>
           </article>
+        </div>
+        <div class="project-label reveal" style="font-family:var(--mono);font-size:0.78rem;color:var(--muted);margin:3rem 0 1rem;letter-spacing:0.06em;">02 — Proyecto personal</div>
+
+        <div class="project-shell project-shell--reversed">
+          <article class="project-info reveal">
+            <div class="project-badge">personal project</div>
+            <h3>NimbusView</h3>
+            <p>
+              Plataforma meteorológica full-stack en tiempo real. Integra múltiples APIs externas,
+              un backend propio como capa de orquestación y un frontend rico con mapa interactivo,
+              radar animado y temas dinámicos según el clima.
+            </p>
+
+            <div class="feature-list">
+              <div class="feature-item">
+                <div class="feature-icon">1</div>
+                <div><strong>Mapa interactivo con Leaflet.</strong> Selección por clic, geolocalización, buscador de ciudades y capas meteorológicas con control de opacidad.</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">2</div>
+                <div><strong>Backend en ASP.NET Core.</strong> Capa de integración con OpenWeather y RainViewer: clima actual, pronóstico a 24h, 5 días y radar animado.</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">3</div>
+                <div><strong>Resiliencia de red.</strong> Fallback de tiles, cooldown automático ante errores y caché de frames de radar para UX fluida ante fallos externos.</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">4</div>
+                <div><strong>UX visual rica.</strong> Animaciones, temas dinámicos según condición climática y panel inferior contextual.</div>
+              </div>
+            </div>
+
+            <div class="tag-list">
+              <span class="tag">React</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">ASP.NET Core</span>
+              <span class="tag">Leaflet</span>
+              <span class="tag">OpenWeather API</span>
+              <span class="tag">RainViewer API</span>
+            </div>
+
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+              <a class="btn btn-primary" href="https://github.com/agusbuscarini/nimbusview" target="_blank" rel="noreferrer">Ver repositorio</a>
+              <a class="btn btn-secondary" href="https://nimbus-view.vercel.app/" target="_blank" rel="noreferrer">Live Demo →</a>
+            </div>
+          </article>
+
+          <div class="terminal-card reveal">
+            <div class="terminal-top">
+              <div class="mini-dots"><span></span><span></span><span></span></div>
+              <div class="terminal-title">nimbusview / architecture view</div>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-prompt"><span class="green">agustin</span>@portfolio:~$ tree ./nimbusview</div>
+              <div class="tree">
+                <div><span class="accent">▸</span> <span class="blue">backend/</span></div>
+                <div>├── WeatherController.cs <span class="amber">// REST endpoints</span></div>
+                <div>├── OpenWeatherService.cs <span class="amber">// forecast & current</span></div>
+                <div>├── RainViewerService.cs <span class="amber">// radar frames</span></div>
+                <div>└── CacheService.cs <span class="amber">// resilience layer</span></div>
+                <br />
+                <div><span class="accent">▸</span> <span class="blue">frontend/</span></div>
+                <div>├── App.tsx <span class="amber">// dynamic theming</span></div>
+                <div>├── WeatherMap.tsx <span class="amber">// interactive map</span></div>
+                <div>├── RadarPlayer.tsx <span class="amber">// animated radar</span></div>
+                <div>└── components/ <span class="amber">// reusable UI</span></div>
+              </div>
+              <br />
+              <div class="terminal-prompt"><span class="green">agustin</span>@portfolio:~$ git log</div>
+              <div><span class="blue">a7f3c1e</span> <span class="amber">feat: animated radar with frame cache</span></div>
+              <div><span class="blue">d2b8f4a</span> <span class="amber">feat: dynamic weather themes</span></div>
+              <div><span class="blue">e9c1d3b</span> <span class="amber">feat: multi-API resilience layer</span></div>
+              <br />
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -962,6 +1050,7 @@
               <li>Spring Boot</li>
               <li>REST APIs</li>
               <li>JPA / Hibernate</li>
+              <li>ASP.NET Core</li>
             </ul>
           </div>
 
@@ -969,9 +1058,10 @@
             <h3>Frontend</h3>
             <ul>
               <li>React</li>
+              <li>TypeScript</li>
               <li>JavaScript</li>
               <li>HTML / CSS</li>
-              <li>UI orientada a producto</li>
+              <li>Leaflet</li>
             </ul>
           </div>
 
@@ -1014,7 +1104,7 @@
                 <div class="contact-link-icon">@</div>
                 <div>
                   <div class="contact-link-label">Email</div>
-                  <div class="contact-link-value">agusbuscarini@gmail.com</div>
+                  <div class="contact-link-value">AgusBuscarini@gmail.com</div>
                 </div>
               </div>
               <div class="contact-arrow">→</div>
@@ -1059,12 +1149,13 @@
     if ('IntersectionObserver' in window) {
       document.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'));
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0.12 });
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     }
   </script>
-</body>
-</html>
